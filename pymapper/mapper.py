@@ -23,11 +23,17 @@ class Mapper:
         """
         self.__mappings = mappings
 
+    def __map_value(self, from_dict, attr_key):
+        attr_value = from_dict
+        for attr_section in attr_key.split('.'):
+            attr_value = attr_value[attr_section]
+        return attr_value
+
     def map(self, from_dict):
         """Method for creating target dict instance
-        
+
         :param from_dict: source dict to be mapped from
-        
+
         :return: Instance of the target dict with mapped attributes
         """
         result = self.__mappings.copy()
@@ -37,8 +43,5 @@ class Mapper:
             if (isinstance(result[k], list)):
                 pass
             else:
-                attr_value = from_dict
-                for attr_section in v.split('.'):
-                    attr_value = attr_value[attr_section]
-                result[k] = attr_value
+                result[k] = self.__map_value(from_dict, v)
         return result
