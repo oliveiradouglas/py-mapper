@@ -1,14 +1,32 @@
 from setuptools import find_packages, setup
 
+with open('README.md', 'r', encoding='utf-8') as fh:
+    long_description = fh.read()
+
 setup(
     name='py-mapper',
-    packaves=find_packages(include=['pymapper']),
     version='0.0.1',
-    description='Python mapper library',
     author='Felipe Endlich',
+    author_email='endlichfelipe@gmail.com',
+    description='Python mapper library',
+    long_description=long_description,
+    long_description_content_type='text/markdown',
+    url='https://github.com/endlichfelipe/py-mapper',
+    classifiers=[
+        'Development Status :: 1 - Planning',
+        'Intended Audience :: Developers',
+        'Topic :: Software Development :: Libraries',
+        'Operating System :: OS Independent',
+        'License :: OSI Approved :: MIT License',
+        'Programming Language :: Python :: 3'
+    ],
+    package_dir={"": "pymapper"},
+    packages=find_packages(where='pymapper'),
+    python_requires='>=3.6',
+    keywords=['MAPPER'],
     license='MIT',
     install_requires=[],
     setup_requires=['pytest-runner'],
     test_require=['pytest'],
-    test_suite='tests'
+    test_suite='tests',
 )
