@@ -15,9 +15,22 @@ class Mapper:
             and the source path as the correspondent values.
 
             Initialization of the Mapper will be:
-            obj = {'foo': 1}
-            mapper = Mapper({'bar': 'foo'})
-            result = mapper.map(obj)
+                obj = {'foo': 1}
+                mapper = Mapper({'bar': '$foo'})
+                result = mapper.map(obj)
+
+            In this case result['bar'] will be equals to 1
+
+            2. Mapping nested object
+            In this case the mapping definition should be a dict with the destination keys,
+            and the source path as the correspondent values.
+
+            Initialization of the Mapper will be:
+                obj = {'foo': {'baz': 1}}
+                mapper = Mapper({'bar': '$foo.baz'})
+                result = mapper.map(obj)
+
+            In this case result['bar'] will be equals to 1
 
         :return: Instance of the ObjectMapper
         """
