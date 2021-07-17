@@ -25,8 +25,5 @@ setup(
     python_requires='>=3.6',
     keywords=['MAPPER'],
     license='MIT',
-    install_requires=[],
-    setup_requires=['pytest-runner'],
-    test_require=['pytest'],
-    test_suite='tests',
+    install_requires=[]
 )
