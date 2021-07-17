@@ -1,3 +1,6 @@
+from abc import abstractproperty
+
+
 class Mapper:
     """
         Base class for mapping dict attributes from one dict to another one
@@ -47,6 +50,17 @@ class Mapper:
         """
         self.__mappings = mappings
 
+    def __map_list(self, from_list, mappings):
+        result = []
+        for item in from_list:
+            if isinstance(item, list):
+                result.append(self.__map_list(item, mappings))
+            elif isinstance(item, dict):
+                result.append(self.__map_dict(item, mappings))
+            else:
+                result.append(item)
+        return result
+
     def __map_value(self, from_dict, attr_key):
         attr_value = from_dict
         # attr_key[1:] to ignore the '$' sign
@@ -76,4 +90,6 @@ class Mapper:
         result = None
         if isinstance(from_dict, dict):
             result = self.__map_dict(from_dict, self.__mappings)
+        else:
+            result = self.__map_list(from_dict, self.__mappings)
         return result
