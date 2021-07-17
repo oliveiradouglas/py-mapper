@@ -32,6 +32,17 @@ class Mapper:
 
             In this case result['bar'] will be equals to 1
 
+            2. Mapping with nested mapping definition
+            In this case the mapping definition should be a dict with the destination keys,
+            and the source path as the correspondent values.
+
+            Initialization of the Mapper will be:
+                obj = {'foo': {'baz': 1}}
+                mapper = Mapper({'bar': {'foo2': '$foo.baz'}})
+                result = mapper.map(obj)
+
+            In this case result['bar']['foo2'] will be equals to 1
+
         :return: Instance of the ObjectMapper
         """
         self.__mappings = mappings
@@ -44,6 +55,17 @@ class Mapper:
             attr_value = attr_value[attr_section]
         return attr_value
 
+    def __map_dict(self, from_dict, mappings):
+        result = mappings.copy()
+        for k, v in result.items():
+            if (isinstance(v, dict)):
+                result[k] = self.__map_dict(from_dict, v)
+            elif (isinstance(v, list)):
+                pass
+            else:
+                result[k] = self.__map_value(from_dict, v)
+        return result
+
     def map(self, from_dict):
         """Method for creating target dict instance
 
@@ -51,12 +73,7 @@ class Mapper:
 
         :return: Instance of the target dict with mapped attributes
         """
-        result = self.__mappings.copy()
-        for k, v in result.items():
-            if (isinstance(result[k], dict)):
-                pass
-            if (isinstance(result[k], list)):
-                pass
-            else:
-                result[k] = self.__map_value(from_dict, v)
+        result = None
+        if isinstance(from_dict, dict):
+            result = self.__map_dict(from_dict, self.__mappings)
         return result
