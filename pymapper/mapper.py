@@ -25,7 +25,9 @@ class Mapper:
 
     def __map_value(self, from_dict, attr_key):
         attr_value = from_dict
-        for attr_section in attr_key.split('.'):
+        # attr_key[1:] to ignore the '$' sign
+        # TODO: Attribute Interpolation
+        for attr_section in attr_key[1:].split('.'):
             attr_value = attr_value[attr_section]
         return attr_value
 
