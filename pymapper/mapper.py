@@ -35,7 +35,7 @@ class Mapper:
 
             In this case result['bar'] will be equals to 1
 
-            2. Mapping with nested mapping definition
+            3. Mapping with nested mapping definition
             In this case the mapping definition should be a dict with the destination keys,
             and the source path as the correspondent values.
 
@@ -66,7 +66,13 @@ class Mapper:
         # attr_key[1:] to ignore the '$' sign
         # TODO: Attribute Interpolation
         for attr_section in attr_key[1:].split('.'):
-            attr_value = attr_value[attr_section]
+            if isinstance(attr_value, list):
+                # result = []
+                # for item in attr_value:
+                #     result.append()
+                pass
+            else:
+                attr_value = attr_value[attr_section]
         return attr_value
 
     def __map_dict(self, from_dict, mappings):
@@ -74,8 +80,6 @@ class Mapper:
         for k, v in result.items():
             if (isinstance(v, dict)):
                 result[k] = self.__map_dict(from_dict, v)
-            elif (isinstance(v, list)):
-                pass
             else:
                 result[k] = self.__map_value(from_dict, v)
         return result
