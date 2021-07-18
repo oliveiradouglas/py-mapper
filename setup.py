@@ -5,7 +5,7 @@ with open('README.md', 'r', encoding='utf-8') as fh:
 
 setup(
     name='py-mapper',
-    version='0.0.1',
+    version='0.1.0a',
     author='Felipe Endlich',
     author_email='endlichfelipe@gmail.com',
     description='Python mapper library',
@@ -13,7 +13,7 @@ setup(
     long_description_content_type='text/markdown',
     url='https://github.com/endlichfelipe/py-mapper',
     classifiers=[
-        'Development Status :: 1 - Planning',
+        'Development Status :: 2 - Pre-Alpha',
         'Intended Audience :: Developers',
         'Topic :: Software Development :: Libraries',
         'Operating System :: OS Independent',
