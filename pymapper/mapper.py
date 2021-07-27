@@ -67,10 +67,11 @@ class Mapper:
         # TODO: Attribute Interpolation
         for attr_section in attr_key[1:].split('.'):
             if isinstance(attr_value, list):
-                # result = []
-                # for item in attr_value:
-                #     result.append()
-                pass
+                result = []
+                for attr in attr_value:
+                    result.append(self.__map_value(attr, f'${attr_section}'))
+
+                attr_value = result
             else:
                 attr_value = attr_value[attr_section]
         return attr_value
@@ -91,6 +92,7 @@ class Mapper:
 
         :return: Instance of the target dict with mapped attributes
         """
+
         result = None
         if isinstance(from_dict, dict):
             result = self.__map_dict(from_dict, self.__mappings)
